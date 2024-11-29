@@ -1,0 +1,32 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build_go_app:
+  stage: build
+  image: golang:1.16
+  script:
+    - go build
+  artifacts:
+    paths:
+      - pig
+      - resources/
+
+test:
+  stage: test
+  image: golang:1.16
+  script:
+    - go test ./...
+
+deploy_to_vm:
+  stage: deploy
+  image: alpine:3.20
+  before_script:
+    - apk add ansible openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan 10.10.144.25 >> ~/.ssh/known_hosts 2>&1
+  script:
+    - ansible-playbook -i inventory.ini playbook.yml

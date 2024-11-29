@@ -1,0 +1,20 @@
+---
+- hosts: all
+  tasks:
+    - name: Создание директории
+      file:
+        path: /home/student/sergeev
+        state: directory
+        mode: '0755'
+
+    - name: Копирование файла pig
+      copy:
+        src: pig
+        dest: /home/student/sergeev/pig
+        mode: '0755'
+
+    - name: Копирование папки resources
+      copy:
+        src: resources/
+        dest: /home/student/sergeev/resources/
+        mode: '0755'
