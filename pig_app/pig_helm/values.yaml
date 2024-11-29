@@ -1,0 +1,36 @@
+replicaCount: 3
+
+image:
+  repository: sion2k/pig
+  tag: t1-k8s
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 8000	
+  targetPort: 8000
+
+resources: 
+  limits:
+    cpu: 250m
+    memory: 256Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+livenessProbe:
+  httpGet:
+    path: /internal/healthz
+    port: 8000
+  initialDelaySeconds: 10
+readinessProbe:
+  httpGet:
+    path: /internal/healthz
+    port: 8000
+  initialDelaySeconds: 10
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80

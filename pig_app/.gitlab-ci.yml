@@ -1,0 +1,48 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build_go_app:
+  stage: build
+  image: golang:1.16
+  script:
+    - go build
+  artifacts:
+    paths:
+      - pig
+      - resources/index.html
+
+build_docker_image:
+  stage: build
+  image: docker:27
+  services:
+    - docker:27-dind
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+  script:
+    - TAG_NAME=$CI_COMMIT_SHORT_SHA
+    - docker build -t $CI_REGISTRY_IMAGE/pig:$TAG_NAME .
+    - docker build -t $CI_REGISTRY_IMAGE/pig:latest .
+    - docker push $CI_REGISTRY_IMAGE/pig:$TAG_NAME
+    - docker push $CI_REGISTRY_IMAGE/pig:latest
+
+test:
+  stage: test
+  image: golang:1.16
+  script:
+    - go test ./...
+
+deploy_to_k8s:
+  stage: deploy
+  image: 
+    name: alpine/k8s:1.31.1
+  before_script:
+    - mkdir -p ~/.kube/
+    - cat $K8S_CONFIG | base64 -d > ~/.kube/config
+    - chmod 600 ~/.kube/config
+  script:
+    - kubectl apply -f k8s_manifest/deployment.yaml
+    - kubectl apply -f k8s_manifest/service.yaml
+    - kubectl scale deployment pig-deployment --replicas=5 -n=a-sergeev
+    - helm install pig-helm pig_helm/ -n=a-sergeev
