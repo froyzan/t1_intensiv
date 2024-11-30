@@ -1,0 +1,22 @@
+stages:
+  - deploy
+
+deploy_rabbitmq:
+  stage: deploy
+  image: 
+    name: alpine/k8s:1.31.1
+  before_script:
+    - mkdir -p ~/.kube/
+    - cat $K8S_CONFIG | base64 -d > ~/.kube/config
+    - chmod 600 ~/.kube/config
+  script:
+    - kubectl apply -f k8s-manifest/rabbitmq-cluster.yml
+    - CHART_EXISTS=$(helm list --filter 'rabbitmq-helm' --namespace=a-sergeev | wc -l)
+    - |
+      if [ "$CHART_EXISTS" -ge 2 ]; then
+        echo "Upgrading RabbitMQ chart..."
+        helm upgrade rabbitmq-helm . --namespace=a-sergeev
+      else
+        echo "Installing RabbitMQ chart..."
+        helm install rabbitmq-helm . --namespace=a-sergeev
+      fi

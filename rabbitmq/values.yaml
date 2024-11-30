@@ -1,0 +1,14 @@
+rabbitmq:
+  name: rabbitmq-helm-cluster
+  namespace: a-sergeev
+  replicas: 1
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  persistence:
+    storageClassName: local-path
+    storage: 500Mi
