@@ -1,10 +1,9 @@
 # Gitlab CI Pipelines
-
-<img src="gitlab_01.jpg" alt="ci" width="400"/>
-
-<img src="https://raw.githubusercontent.com/vutratenko/pig/main/pig.png" alt="PIG" width="200"/>
+![Gitlab CI](gitlab_01.jpg)
+![Gitlab CI](gitlab_02.jpg)
 
 # PIG - a dummy app
+<img src="https://raw.githubusercontent.com/vutratenko/pig/main/pig.png" alt="PIG" width="200"/>
 
 ### Build/Test/Run
 
