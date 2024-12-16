@@ -1,6 +1,6 @@
 # Gitlab CI Pipelines
-![Gitlab CI](gitlab_01.jpg)
-![Gitlab CI](gitlab_02.jpg)
+<img src="gitlab_02.jpg" alt="CI" width="500"/>
+<img src="gitlab_01.jpg" alt="CI Stage" width="500"/>
 
 # PIG - a dummy app
 <img src="https://raw.githubusercontent.com/vutratenko/pig/main/pig.png" alt="PIG" width="200"/>
