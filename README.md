@@ -1,6 +1,6 @@
 # Gitlab CI Pipelines
-<img src="gitlab_02.jpg" alt="CI" width="500"/>
-<img src="gitlab_01.jpg" alt="CI Stage" width="500"/>
+<img src="gitlab_02.jpg" alt="CI" width="700"/>
+<img src="gitlab_01.jpg" alt="CI Stage" width="700"/>
 
 # PIG - a dummy app
 <img src="https://raw.githubusercontent.com/vutratenko/pig/main/pig.png" alt="PIG" width="200"/>
