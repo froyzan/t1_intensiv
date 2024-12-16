@@ -1,3 +1,7 @@
+# Gitlab CI Pipelines
+
+<img src="gitlab_01.jpg" alt="ci" width="400"/>
+
 <img src="https://raw.githubusercontent.com/vutratenko/pig/main/pig.png" alt="PIG" width="200"/>
 
 # PIG - a dummy app
@@ -16,11 +20,7 @@ To run the app hit:
 
 `go run main.go`
 
-
-
 or run compiled binary
-
-
 
 `./pig`
 
@@ -30,4 +30,4 @@ or run compiled binary
 Be also aware of ./resources directory which contains index HTML page. This should be copied alongside with ./pig binary as well with the same structure
 
 
-.
+
